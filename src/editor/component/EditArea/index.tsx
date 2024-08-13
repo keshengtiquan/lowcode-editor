@@ -2,6 +2,7 @@ import React, { MouseEventHandler, useEffect, useState } from "react";
 import { Component, useComponetsStore } from "../../stores/components";
 import { useComponentConfigStore } from "../../stores/component-config";
 import HoverMask from "../HoverMask";
+import SelectedMask from "../SelectedMask"
 
 function EditArea() {
   const { components, addComponent, curComponentId, setCurComponentId } = useComponetsStore();
@@ -69,11 +70,18 @@ function EditArea() {
       onClick={handleClick}
     >
       {renderComponents(components)}
-      {hoverComponentId && (
+      {hoverComponentId && hoverComponentId !== curComponentId &&(
         <HoverMask
           portalWrapperClassName="portal-wrapper"
           containerClassName="edit-area"
           componentId={hoverComponentId}
+        />
+      )}
+      {curComponentId && (
+        <SelectedMask
+          portalWrapperClassName="portal-wrapper"
+          containerClassName="edit-area"
+          componentId={curComponentId}
         />
       )}
       <div className="portal-wrapper"></div>
